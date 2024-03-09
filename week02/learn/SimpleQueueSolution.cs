@@ -11,6 +11,7 @@
         var value = queue.Dequeue();
         Console.WriteLine(value);
         // Defect(s) Found: Trying to remove data from index 1 rather than 0
+        //The Dequeue operation is removing data from index 0, which is incorrect. It should remove data from index 1.
 
         Console.WriteLine("------------");
 
@@ -29,6 +30,7 @@
         value = queue.Dequeue();
         Console.WriteLine(value);
         // Defect(s) Found: The enqueue was inserting at the front of the queue
+        //The Enqueue operation is adding data to the end of the queue, which is correct. However, the Dequeue operation is removing data from index 0, which is correct.
 
         Console.WriteLine("------------");
 
