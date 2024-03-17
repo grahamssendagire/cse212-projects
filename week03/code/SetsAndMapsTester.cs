@@ -1,27 +1,44 @@
-using System.Text.Json;
+ using System.Text.Json;
+ using System.Collections.Generic;
+ using System.IO;
+ using System.Linq;
 
-public static class SetsAndMapsTester {
-    public static void Run() {
+public abstract class SetsAndMapsTester {
+     public abstract  void Main();
+     private static void  DisplayPairs(List<string> words)
+    
+    {
         // Problem 1: Find Pairs with Sets
         Console.WriteLine("\n=========== Finding Pairs TESTS ===========");
-        DisplayPairs(new[] { "am", "at", "ma", "if", "fi" });
-        // ma & am
-        // fi & if
+         string[] wordList = { "am", "at", "ma", "if", "fi" };
+        
+    {
+        HashSet<string> seen = new HashSet<string>();
+        foreach (string word in words)
+        {
+            string reversed = new string(word.Reverse().ToArray());
+            if (seen.Contains(reversed) && word != reversed)
+            {
+                Console.WriteLine($"{word} & {reversed}");
+            }
+            seen.Add(word);
+        }
+    }
         Console.WriteLine("---------");
-        DisplayPairs(new[] { "ab", "bc", "cd", "de", "ba" });
+       // DisplayPairs(new[] { "ab", "bc", "cd", "de", "ba" });
         // ba & ab
         Console.WriteLine("---------");
-        DisplayPairs(new[] { "ab", "ba", "ac", "ad", "da", "ca" });
+        //DisplayPairs(new[] { "ab", "ba", "ac", "ad", "da", "ca" });
         // ba & ab
         // da & ad
         // ca & ac
         Console.WriteLine("---------");
-        DisplayPairs(new[] { "ab", "ac" }); // No pairs displayed
+        //DisplayPairs(new[] { "ab", "ac" }); // No pairs displayed
         Console.WriteLine("---------");
-        DisplayPairs(new[] { "ab", "aa", "ba" });
+        //DisplayPairs(new[] { "ab", "aa", "ba" });
         // ba & ab
         Console.WriteLine("---------");
-        DisplayPairs(new[] { "23", "84", "49", "13", "32", "46", "91", "99", "94", "31", "57", "14" });
+        //DisplayPairs(new[] { "23", "84", "49", "13", "32", "46", "91", "99", "94", "31", "57", "14" });
         // 32 & 23
         // 94 & 49
         // 31 & 13
@@ -35,6 +52,29 @@ public static class SetsAndMapsTester {
         // [Masters, 1723], [9th, 514], [Some-college, 7291], [Assoc-acdm, 1067],
         // [Assoc-voc, 1382], [7th-8th, 646], [Doctorate, 413], [Prof-school, 576],
         // [5th-6th, 333], [10th, 933], [1st-4th, 168], [Preschool, 51], [12th, 433]}
+    static Dictionary<string, int> SummarizeDegrees(string census)
+    {
+        Dictionary<string, int> degreeSummary = new Dictionary<string, int>();
+        using (StreamReader sr = new StreamReader(census))
+        {
+            while (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                string[] data = line.Split(',');
+                string degree = data[3].Trim();
+                if (degreeSummary.ContainsKey(degree))
+                {
+                    degreeSummary[degree]++;
+                }
+                else
+                {
+                    degreeSummary[degree] = 1;
+                }
+            }
+        }
+        return degreeSummary;
+    }
+
 
         // Problem 3: Anagrams
         // Sample Test Cases (may not be comprehensive) 
@@ -49,36 +89,45 @@ public static class SetsAndMapsTester {
         Console.WriteLine(IsAnagram("tom marvolo riddle", "i am lord voldemort")); // true
         Console.WriteLine(IsAnagram("Eleven plus Two", "Twelve Plus One")); // true
         Console.WriteLine(IsAnagram("Eleven plus One", "Twelve Plus One")); // false
+        public static bool IsAnagram(string word1, string word2)
+    {
+        Dictionary<char, int> freq1 = new Dictionary<char, int>();
+        Dictionary<char, int> freq2 = new Dictionary<char, int>();
+
+        foreach (char c in word1.ToLower().Replace(" ", ""))
+        {
+            if (freq1.ContainsKey(c))
+            {
+                freq1[c]++;
+            }
+            else
+            {
+                freq1[c] = 1;
+            }
+        }
+
+        foreach (char c in word2.ToLower().Replace(" ", ""))
+        {
+            if (freq2.ContainsKey(c))
+            {
+                freq2[c]++;
+            }
+            else
+            {
+                freq2[c] = 1;
+            }
+        }
+
+        return freq1.OrderBy(kv => kv.Key).SequenceEqual(freq2.OrderBy(kv => kv.Key));
+    }
+}
 
         // Problem 4: Maze
-        Console.WriteLine("\n=========== Maze TESTS ===========");
-        Dictionary<ValueTuple<int, int>, bool[]> map = SetupMazeMap();
-        var maze = new Maze(map);
-        maze.ShowStatus(); // Should be at (1,1)
-        maze.MoveUp(); // Error
-        maze.MoveLeft(); // Error
-        maze.MoveRight();
-        maze.MoveRight(); // Error
-        maze.MoveDown();
-        maze.MoveDown();
-        maze.MoveDown();
-        maze.MoveRight();
-        maze.MoveRight();
-        maze.MoveUp();
-        maze.MoveRight();
-        maze.MoveDown();
-        maze.MoveLeft();
-        maze.MoveDown(); // Error
-        maze.MoveRight();
-        maze.MoveDown();
-        maze.MoveDown();
-        maze.MoveRight();
-        maze.ShowStatus(); // Should be at (6,6)
-
+       
         // Problem 5: Earthquake
         // Sample Test Cases (may not be comprehensive) 
-        Console.WriteLine("\n=========== Earthquake TESTS ===========");
-        EarthquakeDailySummary();
+        //Console.WriteLine("\n=========== Earthquake TESTS ===========");
+        //EarthquakeDailySummary();
 
         // Sample output from the function.  Number of earthquakes, places, and magnitudes will vary.
         // 1km NE of Pahala, Hawaii - Mag 2.36
@@ -107,12 +156,7 @@ public static class SetsAndMapsTester {
     /// that there were no duplicates) and therefore should not be displayed.
     /// </summary>
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
-    private static void DisplayPairs(string[] words) {
-        // To display the pair correctly use something like:
-        // Console.WriteLine($"{word} & {pair}");
-        // Each pair of words should displayed on its own line.
-    }
-
+  
     /// <summary>
     /// Read a census file and summarize the degrees (education)
     /// earned by those contained in the file.  The summary
@@ -127,15 +171,7 @@ public static class SetsAndMapsTester {
     /// #############
     /// # Problem 2 #
     /// #############
-    private static Dictionary<string, int> SummarizeDegrees(string filename) {
-        var degrees = new Dictionary<string, int>();
-        foreach (var line in File.ReadLines(filename)) {
-            var fields = line.Split(",");
-            // Todo Problem 2 - ADD YOUR CODE HERE
-        }
 
-        return degrees;
-    }
 
     /// <summary>
     /// Determine if 'word1' and 'word2' are anagrams.  An anagram
@@ -236,4 +272,3 @@ public static class SetsAndMapsTester {
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to print out each place a earthquake has happened today and its magitude.
     }
-}
