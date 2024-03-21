@@ -1,9 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+
 public class FeatureCollection {
 
-    // Todo Earthquake Problem - ADD YOUR CODE HERE
-    // Create additional classes as necessary
     public List<Feature> Features { get; set; }
-    public class Earthquake
+
+
+
+
+public class Earthquake
 {
     public string Place { get; set; }
     public double Mag { get; set; }
@@ -13,7 +20,6 @@ public class Feature
 {
     public Earthquake Properties { get; set; }
 }
-
 
 public class EarthquakeService
 {
@@ -29,12 +35,10 @@ public class EarthquakeService
         var response = await _client.GetAsync(url);
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
-       
+        return JsonConvert.DeserializeObject<FeatureCollection>(responseBody);
     }
-}
 
-public class SetsAndMapsTester
-{
+
     // Other methods...
 
     // Problem 4: Earthquake JSON Data
@@ -52,4 +56,5 @@ public class SetsAndMapsTester
         }
     }
 }
+
 }
