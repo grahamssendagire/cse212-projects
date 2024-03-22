@@ -115,7 +115,7 @@ public class EarthquakeDailySummary
             using (var response = await httpClient.GetAsync("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                var earthquakeData = JsonConvert.DeserializeObject<FeatureCollection>(apiResponse);
+                var earthquakeData = JsonSerializer.Deserialize<FeatureCollection>(apiResponse);
 
                 Console.WriteLine("=========== Earthquake TESTS ===========");
 
