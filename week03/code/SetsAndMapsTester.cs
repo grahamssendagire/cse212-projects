@@ -100,11 +100,7 @@ public static Dictionary<string, int> SummarizeDegrees(string filename)
 
         return true;
     }
-public class EarthquakeData
-{
-    public string place { get; set; }
-    public double mag { get; set; }
-}
+
 
 public class EarthquakeDailySummary
 {
@@ -119,29 +115,13 @@ public class EarthquakeDailySummary
 
                 Console.WriteLine("=========== Earthquake TESTS ===========");
 
-                foreach (var feature in earthquakeData.features)
+                foreach (var feature in earthquakeData.Features)
                 {
-                    Console.WriteLine($"{feature.properties.place} - Mag {feature.properties.mag}");
+                    Console.WriteLine($"{feature.Properties.Place} - Mag {feature.Properties.Mag}");
                 }
             }
         }
     }
-}
-
-public class FeatureCollection
-{
-    public List<Feature> features { get; set; }
-}
-
-public class Feature
-{
-    public Properties properties { get; set; }
-}
-
-public class Properties
-{
-    public string place { get; set; }
-    public double mag { get; set; }
 }
 
 }
