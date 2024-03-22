@@ -15,7 +15,7 @@ public class Earthquake
 
 public class Feature
 {
-    public Earthquake Properties { get; set; }
+ public Earthquake Properties { get; set; }
 
 }
 }

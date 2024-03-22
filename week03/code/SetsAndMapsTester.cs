@@ -1,15 +1,38 @@
  using System.Text.Json;
- using System.Collections.Generic;
- using System.IO;
- using System.Linq;
- using System.Net.Http;
-using System.Threading.Tasks;
 
 public class SetsAndMapsTester
 {
 //This will displays the pairs of words i.e words and its reversed form
-    public static void DisplayPairs(List<string> words)
-    {
+public static void Run() {
+        // Problem 1: Find Pairs with Sets
+        Console.WriteLine("\n=========== Finding Pairs TESTS ===========");
+        DisplayPairs(new[] { "am", "at", "ma", "if", "fi" });
+        // ma & am
+        // fi & if
+        Console.WriteLine("---------");
+        DisplayPairs(new[] { "ab", "bc", "cd", "de", "ba" });
+        // ba & ab
+        Console.WriteLine("---------");
+        DisplayPairs(new[] { "ab", "ba", "ac", "ad", "da", "ca" });
+        // ba & ab
+        // da & ad
+        // ca & ac
+        Console.WriteLine("---------");
+        DisplayPairs(new[] { "ab", "ac" }); // No pairs displayed
+        Console.WriteLine("---------");
+        DisplayPairs(new[] { "ab", "aa", "ba" });
+        // ba & ab
+        Console.WriteLine("---------");
+        DisplayPairs(new[] { "23", "84", "49", "13", "32", "46", "91", "99", "94", "31", "57", "14" });
+        // 32 & 23
+        // 94 & 49
+        // 31 & 13
+ 
+        
+                    }
+
+      private static void DisplayPairs(string[] words) {
+    
         // Creating new empty set for storing the words
         HashSet<string> set = new HashSet<string>();
         // iterrate through each element in the set of string words
@@ -29,8 +52,10 @@ public class SetsAndMapsTester
                 set.Add(word);
             }
         }
-   
+      
     }
+   
+    
 // problem 2
 
 // function that returns a dictionary which contains the degrees of the file
@@ -146,3 +171,5 @@ public class EarthquakeDailySummary
 }
 
 }
+ 
+ 
