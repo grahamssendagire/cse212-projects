@@ -1,4 +1,5 @@
- using System.Text.Json;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 
 public class SetsAndMapsTester
 {
@@ -27,9 +28,48 @@ public static void Run() {
         // 32 & 23
         // 94 & 49
         // 31 & 13
+          // Problem 2: Degree Summary
+        // Sample Test Cases (may not be comprehensive)
+        Console.WriteLine("\n=========== Census TESTS ===========");
+        Console.WriteLine(string.Join(", ", SummarizeDegrees("census.txt")));
+        // Results may be in a different order:
+        // <Dictionary>{[Bachelors, 5355], [HS-grad, 10501], [11th, 1175],
+        // [Masters, 1723], [9th, 514], [Some-college, 7291], [Assoc-acdm, 1067],
+        // [Assoc-voc, 1382], [7th-8th, 646], [Doctorate, 413], [Prof-school, 576],
+        // [5th-6th, 333], [10th, 933], [1st-4th, 168], [Preschool, 51], [12th, 433]}
+ 
+        // Problem 3: Anagrams
+        // Sample Test Cases (may not be comprehensive)
+        Console.WriteLine("\n=========== Anagram TESTS ===========");
+        Console.WriteLine(IsAnagram("CAT", "ACT")); // true
+        Console.WriteLine(IsAnagram("DOG", "GOOD")); // false
+        Console.WriteLine(IsAnagram("AABBCCDD", "ABCD")); // false
+        Console.WriteLine(IsAnagram("ABCCD", "ABBCD")); // false
+        Console.WriteLine(IsAnagram("BC", "AD")); // false
+        Console.WriteLine(IsAnagram("Ab", "Ba")); // true
+        Console.WriteLine(IsAnagram("A Decimal Point", "Im a Dot in Place")); // true
+        Console.WriteLine(IsAnagram("tom marvolo riddle", "i am lord voldemort")); // true
+        Console.WriteLine(IsAnagram("Eleven plus Two", "Twelve Plus One")); // true
+        Console.WriteLine(IsAnagram("Eleven plus One", "Twelve Plus One")); // false
+        
+        // Problem 5: Earthquake
+        // Sample Test Cases (may not be comprehensive)
+        Console.WriteLine("\n=========== Earthquake TESTS ===========");
+       
+        
+       
+ 
+       // sample output from the function.  Number of earthquakes, places, and magnitudes will vary.
+        // 1km NE of Pahala, Hawaii - Mag 2.36
+        // 58km NW of Kandrian, Papua New Guinea - Mag 4.5
+        // 16km NNW of Truckee, California - Mag 0.7
+        // 9km S of Idyllwild, CA - Mag 0.25
+        // 14km SW of Searles Valley, CA - Mag 0.36
+        // 4km SW of Volcano, Hawaii - Mag 1.99
+        
  
         
-                    }
+         }
 
       private static void DisplayPairs(string[] words) {
     
