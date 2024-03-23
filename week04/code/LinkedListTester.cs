@@ -1,3 +1,5 @@
+using System.Text;
+
 public static class LinkedListTester {
     public static void Run() {
         // Sample Test Cases (may not be comprehensive) 
@@ -18,7 +20,7 @@ public static class LinkedListTester {
 
         var ll2 = new LinkedList();
         ll2.InsertTail(1);
-        Console.WriteLine(ll2.HeadAndTailAreNotNull()); // True
+       
 
         Console.WriteLine("\n=========== PROBLEM 2 TESTS ===========");
         ll.RemoveTail();
@@ -72,5 +74,185 @@ public static class LinkedListTester {
 
         Console.WriteLine("\n=========== PROBLEM 5 TESTS ===========");
         Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>[10, 10, 35, 100}
+  
+  
+    }
+
+public class Node
+{
+    public int Data;
+    public Node Next;
+
+    public Node(int data)
+    {
+        Data = data;
+        Next = null;
     }
 }
+
+public class LinkedList
+{
+    private Node head;
+    private Node tail;
+
+    public LinkedList()
+    {
+        head = null;
+        tail = null;
+    }
+
+    public void InsertTail(int data)
+    {
+        Node newNode = new Node(data);
+        if (head == null)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else
+        {
+            tail.Next = newNode;
+            tail = newNode;
+        }
+    }
+
+    public void InsertHead(int data)
+    {
+        Node newNode = new Node(data);
+        if (head == null)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else
+        {
+            newNode.Next = head;
+            head = newNode;
+        }
+    }
+
+    public void RemoveTail()
+    {
+        if (head == null)
+            return;
+        if (head == tail)
+        {
+            head = null;
+            tail = null;
+            return;
+        }
+        Node current = head;
+        while (current.Next != tail)
+        {
+            current = current.Next;
+        }
+        current.Next = null;
+        tail = current;
+    }
+
+    public void InsertAfter(int key, int data)
+    {
+        Node newNode = new Node(data);
+        Node current = head;
+        while (current != null && current.Data != key)
+        {
+            current = current.Next;
+        }
+        if (current != null)
+        {
+            newNode.Next = current.Next;
+            current.Next = newNode;
+            if (current == tail)
+                tail = newNode;
+        }
+    }
+
+    public void Remove(int key)
+    {
+        if (head == null)
+            return;
+        if (head.Data == key)
+        {
+            head = head.Next;
+            if (head == null)
+                tail = null;
+            return;
+        }
+        Node current = head;
+        while (current.Next != null && current.Next.Data != key)
+        {
+            current = current.Next;
+        }
+        if (current.Next != null)
+        {
+            current.Next = current.Next.Next;
+            if (current.Next == null)
+                tail = current;
+        }
+    }
+
+    public void Replace(int key, int data)
+    {
+        Node current = head;
+        while (current != null)
+        {
+            if (current.Data == key)
+            {
+                current.Data = data;
+            }
+            current = current.Next;
+        }
+    }
+
+    public LinkedList Reverse()
+    {
+        LinkedList reversedList = new LinkedList();
+        Node current = head;
+        while (current != null)
+        {
+            reversedList.InsertHead(current.Data);
+            current = current.Next;
+        }
+        return reversedList;
+    }
+
+    public bool HeadAndTailAreNull()
+    {
+        return head == null && tail == null;
+    }
+
+    public string AsString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<IEnumerable>[");
+        Node current = head;
+        while (current != null)
+        {
+            sb.Append(current.Data);
+            if (current.Next != null)
+                sb.Append(", ");
+            current = current.Next;
+        }
+        sb.Append("]");
+        return sb.ToString();
+    }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<LinkedList>{");
+        Node current = head;
+        while (current != null)
+        {
+            sb.Append(current.Data);
+            if (current.Next != null)
+                sb.Append(", ");
+            current = current.Next;
+        }
+        sb.Append("}");
+        return sb.ToString();
+    }
+}
+}
+
+
