@@ -28,7 +28,7 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void InsertTail(int value) {
         // TODO Problem 1
-    }
+    }  
 
 
     /// <summary>
@@ -142,5 +142,5 @@ public class LinkedList : IEnumerable<int> {
     // Just for testing.
     public Boolean HeadAndTailAreNotNull() {
         return _head is not null && _tail is not null;
-    }
+    }   
 }
