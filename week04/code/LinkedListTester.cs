@@ -82,6 +82,7 @@ public class Node
 {
     public int Data;
     public Node Next;
+    public Node prev;
 
     public Node(int data)
     {
@@ -111,8 +112,9 @@ public class LinkedList
         }
         else
         {
+            newNode.prev = tail;
             tail.Next = newNode;
-            tail = newNode;
+            tail = newNode;   
         }
     }
 
@@ -121,7 +123,7 @@ public class LinkedList
         Node newNode = new Node(data);
         if (head == null)
         {
-            head = newNode;
+            head = newNode; 
             tail = newNode;
         }
         else
