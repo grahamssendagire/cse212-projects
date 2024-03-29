@@ -2,11 +2,8 @@ using System.Collections;
 
 public class LinkedList : IEnumerable<int> {
     private Node? _head;
-    private Node? _tail;
-    private Node? _intdata;
-    private Node? _Next;
-    private Node? _prev;
-    private Node? _curr;
+    private Node? _tail;                
+    private Node? curr;
 
     /// <summary>
     /// Insert a new node at the front (i.e. the head) of the linked list.
@@ -39,18 +36,16 @@ public class LinkedList : IEnumerable<int> {
             _tail = newNode;
         }
         else
-        {
-            _tail.Next = newNode;
-            _tail = newNode;   
+        {   //_tail.Next = newNode;//set the "Next" of the current tail to the newNode.
+             newNode.Prev= _tail;//set the "prev" of the newNode to the current tail.
+            _tail = newNode;//set the tail equal to the newNode or update the tail to point the newNode.
         }
     }  
-
-
     /// <summary>
     /// Remove the first node (i.e. the head) of the linked list.
     /// </summary>
     public void RemoveHead() {
-        // If the list has only one item in it, then set head and tail 
+        // If the list has only one item  in it, then set head and tail 
         // to null resulting in an empty list.  This condition will also
         // cover an empty list.  Its okay to set to null again.
         if (_head == _tail) {
@@ -74,17 +69,17 @@ public class LinkedList : IEnumerable<int> {
             return;
         if (_head == _tail)
         {
-            _head = null;
+            _head = null; 
             _tail = null;
             return;
         }
-        Node current = _head;
-        while (_curr.Next != _tail)
+        Node curr = _head;
+        while (curr.Next != _tail)
         {
-            _curr = _curr.Next;
+            curr = curr.Next;
         }
-        _curr.Next = null;
-        _tail = current;
+        curr.Next = null;
+        _tail = curr;
         // TODO Problem 2
     }
 
@@ -132,16 +127,16 @@ public class LinkedList : IEnumerable<int> {
                 _tail = null;
             return;
         }
-        Node current = _head;
-        while (current.Next != null && current.Next.Data != value)
+        Node curr = _head;
+        while (curr.Next != null && curr.Next.Data != value)
         {
-            current = current.Next;
+            curr = curr.Next;
         }
-        if (current.Next != null)
+        if (curr.Next != null)
         {
-            current.Next = current.Next.Next;
-            if (current.Next == null)
-                _tail = current;
+            curr.Next = curr.Next.Next;
+            if (curr.Next == null)
+                _tail = curr;
         }
         // TODO Problem 3
     }
@@ -151,14 +146,14 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void Replace(int oldValue, int newValue) {
         // TODO Problem 4
-         Node current = _head ;
-        while (current != null)
+         Node curr = _head ;
+        while (curr != null)
         {
-            if (current.Data == oldValue )
+            if (curr.Data == oldValue )
             {
                 
             }
-            current = current.Next;
+            curr = curr.Next;
         }
     }
 
@@ -189,24 +184,53 @@ public class LinkedList : IEnumerable<int> {
         yield return 0; // replace this line with the correct yield return statement(s)
     
      LinkedList reversedList = new LinkedList();
-        Node current = _head;
-        while (current != null)
+        Node curr = _head;
+        while (curr != null)
         {
-            reversedList.InsertHead(current.Data);
-            current = current.Next;
+            reversedList.InsertHead(curr.Data);
+            curr = curr.Next;
         }
         
     }
 
-
-    public override string ToString() {
-        return "<LinkedList>{" + string.Join(", ", this) + "}";
-        
+      public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<LinkedList>{");
+        Node curr = _head;
+        while (curr != null)
+        {
+            sb.Append(curr.Data);
+            if (curr.Next != null)
+                sb.Append(", ");
+            curr = curr.Next;
+        }
+        sb.Append("}");
+        return sb.ToString();
+    }
+          
+        public string AsString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<IEnumerable>[");
+        Node curr = _head;
+        while (curr!= null)
+        {
+            sb.Append(curr.Data);
+            if (curr.Next != null)
+                sb.Append(", ");
+            curr = curr.Next;
+        }
+        sb.Append("]");
+        return sb.ToString();
     }
 
     // Just for testing.
     public Boolean HeadAndTailAreNull() {
-        return _head is null && _tail is null;
+       
+        {
+         return _head is null && _tail is null;
+        }
     }
 
     // Just for testing.
