@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Text;
 
 public class LinkedList : IEnumerable<int> {
     private Node? _head;
@@ -73,12 +75,22 @@ public class LinkedList : IEnumerable<int> {
             _tail = null;
             return;
         }
+        //this code snippet removes the last node from the linked list by iterating through the list until it finds the second-to-last node,
+        // sets its Next pointer to null, and updates the _tail reference to point to this second-to-last node.
         Node curr = _head;
         while (curr.Next != _tail)
+        //This line starts a while loop that iterates through the linked list until curr.Next (the next node after curr) is equal to _tail. 
+        //This implies that _tail is the last node of the linked list.
         {
+            //  Inside the loop, curr is updated to point to the next node in the linked list.
             curr = curr.Next;
         }
+        //After the loop, the Next pointer of the node referenced by curr is set to null. 
+        //This effectively breaks the link between the last node and the node after it, 
+        //Effectively removing the last node from the linked list.
         curr.Next = null;
+        //Finally, _tail is updated to point to the node referenced by curr,
+         //effectively setting _tail to the new last node of the linked list.
         _tail = curr;
         // TODO Problem 2
     }
