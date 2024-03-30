@@ -4,8 +4,8 @@ using System.Text;
 
 public class LinkedList : IEnumerable<int> {
     private Node? _head;
-    private Node? _tail;                
-    private Node? curr;
+    private Node? _tail;   
+      private Node? curr;          
 
     /// <summary>
     /// Insert a new node at the front (i.e. the head) of the linked list.
@@ -77,8 +77,10 @@ public class LinkedList : IEnumerable<int> {
         }
         //this code snippet removes the last node from the linked list by iterating through the list until it finds the second-to-last node,
         // sets its Next pointer to null, and updates the _tail reference to point to this second-to-last node.
-        Node curr = _head;
-        while (curr.Next != _tail)
+       // Node curr = _head;
+         Node? curr = _head;
+         while (curr.Next != _tail)
+        
         //This line starts a while loop that iterates through the linked list until curr.Next (the next node after curr) is equal to _tail. 
         //This implies that _tail is the last node of the linked list.
         {
@@ -158,7 +160,7 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void Replace(int oldValue, int newValue) {
         // TODO Problem 4
-         Node curr = _head ;
+         Node curr = _head;
         while (curr != null)
         {
             if (curr.Data == oldValue )
