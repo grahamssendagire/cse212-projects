@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Text;
 public static class RecursionTester {
     /// <summary>
     /// Entry point for the Prove 8 tests
@@ -147,7 +150,11 @@ public static class RecursionTester {
     /// </summary>
     public static int SumSquaresRecursive(int n) {
         // TODO Start Problem 1
-        return 0;
+        if(n<=0) 
+        // base case(Termination condition of a recursion)
+        return 0; 
+        else
+           return n*n + SumSquaresRecursive(n-1);// Recursive Call on Small Problem:
     }
 
     /// <summary>
@@ -171,7 +178,18 @@ public static class RecursionTester {
     /// </summary>
     public static void PermutationsChoose(string letters, int size, string word = "") {
         // TODO Start Problem 2
-    }
+         if (size == 0)
+      {
+        return;  
+      }
+        Console.WriteLine(permutation);
+      
+      for (int i = 0; i < letters.Length; i++)
+      {
+        PermutationsChoose(letters, size - 1, permutation + letters[i]);
+      }
+
+     }
 
     /// <summary>
     /// #############
@@ -214,11 +232,13 @@ public static class RecursionTester {
     /// to update this function to use memoization.  The parameter
     /// 'remember' has already been added as an input parameter to 
     /// the function for you to complete this task.
-    ///
+    ///  
     /// The last test case is commented out because it will not work
     /// until the memoization is implemented.
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null) {
+        if (remember == null)
+        remember = new Dictionary<int, decimal>();
         // Base Cases
         if (s == 0)
             return 0;
@@ -228,10 +248,13 @@ public static class RecursionTester {
             return 2;
         if (s == 3)
             return 4;
+        if (remember.ContainsKey(s))
+        return remember[s];
+       decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        return ways;
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
-        return ways;
+        
     }
 
     /// <summary>
@@ -249,6 +272,22 @@ public static class RecursionTester {
     /// </summary>
     public static void WildcardBinary(string pattern) {
         // TODO Start Problem 4
+       if (pattern.Length == 0)
+    {
+        Console.WriteLine(output);
+        return;
+    }
+
+    if (pattern[0] == '*')
+    {
+       WildcardBinaryPatterns(pattern.Substring(1), output + '0');
+       WildcardBinaryPatterns(pattern.Substring(1), output + '1');
+    }
+    else
+    {
+       WildcardBinaryPatterns(pattern.Substring(1), output + pattern[0]);
+    }
+
     }
 
     /// <summary>
@@ -265,6 +304,26 @@ public static class RecursionTester {
 
         // TODO Start Problem 5
         // ADD CODE HERE
+        int size = maze.GetLength(0);
+        if (IsEnd(x, y, maze))
+        {
+        currPath.Add((x, y));
+        Console.WriteLine(string.Join(" -> ", currPath));
+        currPath.RemoveAt(currPath.Count - 1);
+        return;
+        }
+
+       if (IsValidMove(x, y, maze))
+         {
+        currPath.Add((x, y));
+
+        SolveMaze(maze, currPath, x + 1, y); // Right
+        SolveMaze(maze, currPath, x, y + 1); // Down
+        SolveMaze(maze, currPath, x - 1, y); // Left
+        SolveMaze(maze, currPath, x, y - 1); // Up
+
+        currPath.RemoveAt(currPath.Count - 1);
+        }
 
         // Console.WriteLine(currPath.AsString()); // Use this to print out your path when you find the solution
     }
