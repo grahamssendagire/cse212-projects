@@ -5,8 +5,8 @@ using System.Text;
 public class LinkedList : IEnumerable<int> {
     private Node? _head;
     private Node? _tail;   
-      private Node? curr;          
-
+    private Node? curr;  
+      
     /// <summary>
     /// Insert a new node at the front (i.e. the head) of the linked list.
     /// </summary>
@@ -47,16 +47,19 @@ public class LinkedList : IEnumerable<int> {
     /// Remove the first node (i.e. the head) of the linked list.
     /// </summary>
     public void RemoveHead() {
+        
         // If the list has only one item  in it, then set head and tail 
         // to null resulting in an empty list.  This condition will also
         // cover an empty list.  Its okay to set to null again.
         if (_head == _tail) {
             _head = null;
             _tail = null;
+           
         }
         // If the list has more than one item in it, then only the head
         // will be affected.
         else if (_head is not null) {
+        
             _head.Next!.Prev = null; // Disconnect the second node from the first node
             _head = _head.Next; // Update the head to point to the second node
         }
@@ -66,7 +69,8 @@ public class LinkedList : IEnumerable<int> {
     /// <summary>
     /// Remove the last node (i.e. the tail) of the linked list.
     /// </summary>
-    public void RemoveTail() {
+    public void RemoveTail(int value) {
+    
         if (_head == null)
             return;
         if (_head == _tail)
@@ -78,6 +82,7 @@ public class LinkedList : IEnumerable<int> {
         //this code snippet removes the last node from the linked list by iterating through the list until it finds the second-to-last node,
         // sets its Next pointer to null, and updates the _tail reference to point to this second-to-last node.
        // Node curr = _head;
+        
          Node? curr = _head;
          while (curr.Next != _tail)
         
@@ -103,6 +108,7 @@ public class LinkedList : IEnumerable<int> {
     public void InsertAfter(int value, int newValue) {
         // Search for the node that matches 'value' by starting at the 
         // head of the list.
+        
         Node? curr = _head;
         while (curr is not null) {
             if (curr.Data == value) {
