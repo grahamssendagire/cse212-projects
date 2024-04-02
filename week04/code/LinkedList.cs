@@ -47,7 +47,6 @@ public class LinkedList : IEnumerable<int> {
     /// Remove the first node (i.e. the head) of the linked list.
     /// </summary>
     public void RemoveHead() {
-        
         // If the list has only one item  in it, then set head and tail 
         // to null resulting in an empty list.  This condition will also
         // cover an empty list.  Its okay to set to null again.
@@ -69,8 +68,8 @@ public class LinkedList : IEnumerable<int> {
     /// <summary>
     /// Remove the last node (i.e. the tail) of the linked list.
     /// </summary>
-    public void RemoveTail(int value) {
-    
+    public void RemoveTail() {
+       
         if (_head == null)
             return;
         if (_head == _tail)
