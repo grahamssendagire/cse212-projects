@@ -291,12 +291,12 @@ public static class RecursionTester {
 
     if (pattern[0] == '*')
     {
-      WildcardBinary(pattern.Substring(1), pattern + '0');
-       WildcardBinary(pattern.Substring(1), pattern+ '1');
+    //    WildcardBinary(pattern.Substring(1), pattern + '0');
+    //    WildcardBinary(pattern.Substring(1), pattern+ '1');
     }
     else
     {
-       WildcardBinary(pattern.Substring(1), pattern+ pattern[0]);
+    //    WildcardBinary(pattern.Substring(1), pattern+ pattern[0]);
     }
 
     }
