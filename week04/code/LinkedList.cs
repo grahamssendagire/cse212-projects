@@ -38,7 +38,7 @@ public class LinkedList : IEnumerable<int> {
             _tail = newNode;
         }
         else
-        {   //_tail.Next = newNode;//set the "Next" of the current tail to the newNode.
+        {   _tail.Next = newNode;//set the "Next" of the current tail to the newNode.
              newNode.Prev= _tail;//set the "prev" of the newNode to the current tail.
             _tail = newNode;//set the tail equal to the newNode or update the tail to point the newNode.
         }
@@ -170,7 +170,7 @@ public class LinkedList : IEnumerable<int> {
         {
             if (curr.Data == oldValue )
             {
-                
+              curr.Data = newValue;
             }
             curr = curr.Next;
         }
@@ -200,16 +200,11 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public IEnumerable Reverse() {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
-    
-     LinkedList reversedList = new LinkedList();
-        Node curr = _head;
-        while (curr != null)
-        {
-            reversedList.InsertHead(curr.Data);
-            curr = curr.Next;
+       var curr = _tail; // Start at the ending since this is a backward iteration.
+        while (curr is not null) {
+            yield return curr.Data; // Provide (yield) each item to the user
+            curr = curr.Prev; // Go backward in the linked list
         }
-        
     }
 
       public override string ToString()
