@@ -177,19 +177,28 @@ public static class RecursionTester {
     /// and the length of the letters list).
     /// </summary>
     public static void PermutationsChoose(string letters, int size, string word = "") {
-        // TODO Start Problem 2
-         if (size == 0)
-      {
-        return;  
-      }
-        Console.WriteLine(permutation);
-      
-      for (int i = 0; i < letters.Length; i++)
-      {
-        PermutationsChoose(letters, size - 1, permutation + letters[i]);
-      }
+    // Try adding each of the available letters
+    // to the 'word' and add up all the
+    // resulting permutations.
+    if (letters.Length == size)
+    {
+        Console.WriteLine(word);
+    }
+    else
+    {
+        for (var i = 0; i < letters.Length; i++)
+        {
+            // Make a copy of the letters to pass to the
+            // the next call to permutations.  We need
+            // to remove the letter we just added before
+            // we call permutations again.
+            var lettersLeft = letters.Remove(i, 1);
 
-     }
+            // Add the new letter to the word we have so far
+            PermutationsChoose(lettersLeft,size, word + letters[i]);
+        }
+    }
+}
 
     /// <summary>
     /// #############
@@ -270,22 +279,24 @@ public static class RecursionTester {
     /// Using recursion, display all possible binary strings for a given pattern.  You might find 
     /// some of the string functions like IndexOf and [..X] / [X..] to be useful in solving this problem.
     /// </summary>
+    
+    //Code Binary
     public static void WildcardBinary(string pattern) {
         // TODO Start Problem 4
        if (pattern.Length == 0)
     {
-        Console.WriteLine(output);
+         Console.WriteLine(pattern);
         return;
     }
 
     if (pattern[0] == '*')
     {
-       WildcardBinaryPatterns(pattern.Substring(1), output + '0');
-       WildcardBinaryPatterns(pattern.Substring(1), output + '1');
+      WildcardBinary(pattern.Substring(1), pattern + '0');
+       WildcardBinary(pattern.Substring(1), pattern+ '1');
     }
     else
     {
-       WildcardBinaryPatterns(pattern.Substring(1), output + pattern[0]);
+       WildcardBinary(pattern.Substring(1), pattern+ pattern[0]);
     }
 
     }
@@ -297,33 +308,33 @@ public static class RecursionTester {
     public static void SolveMaze(Maze maze, int x = 0, int y = 0, List<ValueTuple<int, int>>? currPath = null) {
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
-        if (currPath == null)
-            currPath = new List<ValueTuple<int, int>>();
+    //     if (currPath == null)
+    //         currPath = new List<ValueTuple<int, int>>();
 
-        // currPath.Add((1,2)); // Use this syntax to add to the current path
+    //     // currPath.Add((1,2)); // Use this syntax to add to the current path
 
-        // TODO Start Problem 5
-        // ADD CODE HERE
-        int size = maze.GetLength(0);
-        if (IsEnd(x, y, maze))
-        {
-        currPath.Add((x, y));
-        Console.WriteLine(string.Join(" -> ", currPath));
-        currPath.RemoveAt(currPath.Count - 1);
-        return;
-        }
+    //     // TODO Start Problem 5
+    //     // ADD CODE HERE
+    //     int size = maze.GetLength(0);
+    //     if (IsEnd(x, y, maze))
+    //     {
+    //     currPath.Add((x, y));
+    //     Console.WriteLine(string.Join(" -> ", currPath));
+    //     currPath.RemoveAt(currPath.Count - 1);
+    //     return;
+    //     }
 
-       if (IsValidMove(x, y, maze))
-         {
-        currPath.Add((x, y));
+    //    if (IsValidMove(x, y, maze))
+    //      {
+    //     currPath.Add((x, y));
 
-        SolveMaze(maze, currPath, x + 1, y); // Right
-        SolveMaze(maze, currPath, x, y + 1); // Down
-        SolveMaze(maze, currPath, x - 1, y); // Left
-        SolveMaze(maze, currPath, x, y - 1); // Up
+    //     SolveMaze(maze, currPath, x + 1, y); // Right
+    //     SolveMaze(maze, currPath, x, y + 1); // Down
+    //     SolveMaze(maze, currPath, x - 1, y); // Left
+    //     SolveMaze(maze, currPath, x, y - 1); // Up
 
-        currPath.RemoveAt(currPath.Count - 1);
-        }
+    //     currPath.RemoveAt(currPath.Count - 1);
+    //     }
 
         // Console.WriteLine(currPath.AsString()); // Use this to print out your path when you find the solution
     }
