@@ -40,7 +40,7 @@ public class BinarySearchTree : IEnumerable<int> {
     public IEnumerator<int> GetEnumerator() {
         var numbers = new List<int>();
         TraverseForward(_root, numbers);
-        foreach (var number in numbers) {
+        foreach (var number in numbers) { 
             yield return number;
         }
     }
@@ -65,6 +65,11 @@ public class BinarySearchTree : IEnumerable<int> {
     }
 
     private void TraverseBackward(Node? node, List<int> values) {
+         if (node is not null) {
+            TraverseBackward(node.Right, values);
+            values.Add(node.Data);
+            TraverseBackward(node.Left, values);
+        }
         // TODO Problem 3
     }
 
@@ -74,6 +79,8 @@ public class BinarySearchTree : IEnumerable<int> {
     public int GetHeight() {
         if (_root is null)
             return 0;
+        else
+
         return _root.GetHeight();
     }
 
