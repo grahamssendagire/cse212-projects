@@ -2,7 +2,10 @@ using System.Collections;
 
 public class BinarySearchTree : IEnumerable<int> {
     private Node? _root;
-
+    
+     public int Value { get; private set; }
+    public Node Left { get; private set; }
+    public Node Right { get; private set; }
     /// <summary>
     /// Insert a new node in the BST.
     /// </summary>
@@ -23,7 +26,16 @@ public class BinarySearchTree : IEnumerable<int> {
     /// <param name="value">The value to look for</param>
     /// <returns>true if found, otherwise false</returns>
     public bool Contains(int value) {
-        return _root != null && _root.Contains(value);
+        //return 
+        //_root != null && _root.Contains(value);
+        if (value == Value)
+            return true;
+        else if (value < Value && Left != null)
+            return Left.Contains(value);
+        else if (value > Value && Right != null)
+            return Right.Contains(value);
+        else
+            return false;
     }
 
     /// <summary>
@@ -56,7 +68,7 @@ public class BinarySearchTree : IEnumerable<int> {
     /// <summary>
     /// Iterate backward through the BST.
     /// </summary>
-    public IEnumerable Reverse() {
+    public IEnumerable Reverse(){
         var numbers = new List<int>();
         TraverseBackward(_root, numbers);
         foreach (var number in numbers) {
@@ -70,20 +82,17 @@ public class BinarySearchTree : IEnumerable<int> {
             values.Add(node.Data);
             TraverseBackward(node.Left, values);
         }
-        // TODO Problem 3
+            // TODO Problem 3
     }
 
     /// <summary>
     /// Get the height of the tree
     /// </summary>
     public int GetHeight() {
-        if (_root is null)
-            return 0;
-        else
-
-        return _root.GetHeight();
+        int leftHeight = Left != null ? Left.GetHeight() : 0;
+        int rightHeight = Right != null ? Right.GetHeight() : 0;
+        return 1 + Math.Max(leftHeight, rightHeight);
     }
-
     public override string ToString() {
         return "<Bst>{" + string.Join(", ", this) + "}";
     }
