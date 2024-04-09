@@ -26,8 +26,8 @@ public class BinarySearchTree : IEnumerable<int> {
     /// <param name="value">The value to look for</param>
     /// <returns>true if found, otherwise false</returns>
     public bool Contains(int value) {
-        //return 
-        //_root != null && _root.Contains(value);
+        
+        // _root != null && _root.Contains(value);
         if (value == Value)
             return true;
         else if (value < Value && Left != null)
